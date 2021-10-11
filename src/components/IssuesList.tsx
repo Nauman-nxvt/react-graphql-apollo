@@ -16,25 +16,21 @@ const IssuesListContainer = styled.div`
 `
 
 const IconStyle = css`
-  width: 0.8rem;
-  height: 0.8rem;
+  width: 1rem;
+  height: 1rem;
   margin-right: 5px;
 `
 
-const Check = styled(IconCheck)`
-  ${IconStyle}
+const RedCheck = styled(IconCheck)`
+  ${IconStyle};
   stroke-width: 1;
-  stroke: currentColor;
-`
-const RedCheck = styled(Check)`
-  fill: darkred;
+  stroke: rgb(207, 34, 46);
+  fill: rgb(207, 34, 46);
 `
 
-const Dot = styled(IconDot)`
-  ${IconStyle}
-`
-const GreenDot = styled(Dot)`
- fill: green; 
+const GreenDot = styled(IconDot)`
+  ${IconStyle};
+ fill: rgb(26, 127, 55); 
 `
 
 const IssueList = styled.ul`
@@ -57,7 +53,7 @@ const IssueListItem = styled.li`
 const IssueTitle = styled.div`
   display: flex;
   flex-direction: row;
-  align-items: flex-start;
+  align-items: center;
   justify-content: flex-start;
   font-size: .9em;
   line-height: 1;
@@ -104,7 +100,6 @@ const IssuesList = ({issues}: IssueListProps) => {
                                     #{edge.node.number}
                                     {authoredInfo(edge.node.createdAt, edge.node.closedAt, edge.node.author?.login)}
                                 </IssueInfo>
-                                {/*<div dangerouslySetInnerHTML={{__html: edge.node.bodyHTML}}/>*/}
                             </IssueListItem>) : null
                 })
                 }

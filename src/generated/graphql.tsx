@@ -21972,6 +21972,7 @@ export type WorkflowRunPendingDeploymentRequestsArgs = {
 
 export type GetIssuesQueryVariables = Exact<{
   query: Scalars['String'];
+  endCursor?: Maybe<Scalars['String']>;
 }>;
 
 
@@ -21979,8 +21980,8 @@ export type GetIssuesQuery = { __typename?: 'Query', search: { __typename?: 'Sea
 
 
 export const GetIssuesDocument = gql`
-    query getIssues($query: String!) {
-  search(first: 10, query: $query, type: ISSUE) {
+    query getIssues($query: String!, $endCursor: String) {
+  search(first: 10, query: $query, type: ISSUE, after: $endCursor) {
     issueCount
     pageInfo {
       endCursor
@@ -22020,6 +22021,7 @@ export const GetIssuesDocument = gql`
  * const { data, loading, error } = useGetIssuesQuery({
  *   variables: {
  *      query: // value for 'query'
+ *      endCursor: // value for 'endCursor'
  *   },
  * });
  */

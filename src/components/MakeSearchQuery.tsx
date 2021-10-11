@@ -4,6 +4,7 @@ import {ReactComponent as IconSearch} from '../icons/IconSearch.svg'
 import {ReactComponent as IconCheck} from "../icons/IconCheck.svg"
 import {ReactComponent as IconDot} from "../icons/IconDot.svg"
 import {ReactComponent as IconCross} from "../icons/IconCross.svg"
+import {IconButton} from "./atoms/Buttons";
 
 const SearchBoxWrapper = styled.div`
   display: flex;
@@ -26,6 +27,7 @@ const SearchBox = styled.div`
     padding: 5px 12px 5px 30px;
     font-size: 0.9rem;
     line-height: 20px;
+    border: 1px solid #d0d7de;
   }
 `
 const SearchButtonsContainer = styled.div`
@@ -35,38 +37,22 @@ const SearchButtonsContainer = styled.div`
   display: flex;
   flex-direction: row;
   justify-content: flex-start;
-  min-width: 0
+  min-width: 0;
+  border: 1px solid #d0d7de;
 `
 
-const IssueStateButton = styled.button<{ isSelected: boolean }>`
-  display: flex;
-  flex-direction: row;
-  justify-content: flex-start;
-  width: 60px;
-  padding: 0;
-  margin: 0 5px;
-  background: transparent;
-  border: 0;
-  color: ${({isSelected}) => isSelected ? 'black' : '#57606a'};
+const IssueStateButton = styled(IconButton)<{ isSelected: boolean }>`
+   width: 70px;
+   color: ${({isSelected}) => isSelected ? 'black' : '#57606a'};
   svg{
     fill: ${({isSelected}) => isSelected ? 'black' : '#57606a'};
   }
 `
 
-const ClearSearchButton = styled.button`
-  display: flex;
-  flex-direction: row;
-  justify-content: flex-start;
+const ClearSearchButton = styled(IconButton)`
   align-items: center;
-  //width: 60px;
-  padding: 0;
-  margin: 0 5px;
-  background: transparent;
-  border: 0;
-  font-size: 0.9rem;
   font-weight: 600;
   color: rgb(87, 96, 106);
-  cursor: pointer;
   & svg {
     fill: rgb(87, 96, 106);
   }
@@ -79,8 +65,8 @@ const ClearSearchButton = styled.button`
   }
 `
 const IconStyle = css`
-  width: 0.8rem;
-  height: 0.8rem;
+  width: 1rem;
+  height: 1rem;
   margin-right: 5px;
 `
 const CrossIcon = styled(IconCross)`
@@ -94,11 +80,11 @@ const SearchIcon = styled(IconSearch)`
   height: 1.5rem;
   margin: 3px 5px 0 5px;
   position: absolute;
-  top: 25px;
+  top: 22px;
 `
 
 const Check = styled(IconCheck)`
-  ${IconStyle}
+  ${IconStyle};
   stroke-width: 1;
   stroke: currentColor;
 `

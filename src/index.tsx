@@ -27,7 +27,25 @@ const authLink = setContext((_, { headers }) => {
 
 const client = new ApolloClient({
     link: authLink.concat(httpLink),
-    cache: new InMemoryCache()
+    cache: new InMemoryCache({
+        typePolicies: {
+            Query: {
+                fields: {
+                    search: {
+                        keyArgs: ['query'],
+                        merge(existing, incoming) {
+                            if(existing) {
+                                const combined = {...incoming}
+                                combined.edges = [...existing.edges, ...incoming.edges]
+                                return combined
+                            }
+                            return incoming
+                        },
+                    }
+                }
+            }
+        }
+    })
 });
 ReactDOM.render(
     <React.StrictMode>

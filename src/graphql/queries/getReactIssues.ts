@@ -1,11 +1,12 @@
 import {gql} from '@apollo/client'
 
 export const GET_ISSUES = gql`
-    query getIssues($query: String!) {
+    query getIssues($query: String!, $endCursor: String) {
         search(
             first:10,
             query: $query,
-            type:ISSUE
+            type:ISSUE,
+            after: $endCursor
         ) {
             issueCount
             pageInfo {endCursor}
