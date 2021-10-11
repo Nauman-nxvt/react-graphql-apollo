@@ -2,6 +2,7 @@ import React, {useEffect, useState} from 'react';
 import MakeSearchQuery from "./components/MakeSearchQuery";
 import styled from "styled-components";
 import {useGetIssuesLazyQuery} from "./generated/graphql";
+import IssuesList from "./components/IssuesList";
 
 const Container = styled.div`
   display: grid;
@@ -21,10 +22,10 @@ function App() {
     loadIssues()
   },[query])
 
-  console.log('data', data)
   return (
       <Container>
         <MakeSearchQuery setQuery={setQuery}/>
+        <IssuesList issues={data}/>
       </Container>
   );
 }
