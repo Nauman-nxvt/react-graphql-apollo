@@ -1,5 +1,5 @@
-import {formatDistanceToNowStrict} from "date-fns";
+import { formatDistanceToNowStrict } from 'date-fns'
 
-export function convertDateToTimeAgo(date: Date) {
+export function convertDateToTimeAgo(date: Date): string {
     return formatDistanceToNowStrict(date)
 }

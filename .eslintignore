@@ -1,0 +1,7 @@
+node-modules
+build
+src/generated
+src/reportWebVitals.ts
+yarn.lock
+**/*.css
+**/*.html
