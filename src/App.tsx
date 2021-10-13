@@ -1,10 +1,10 @@
-import React, { ReactElement, useEffect, useState } from 'react'
-import MakeSearchQuery from './components/MakeSearchQuery'
+import React, { ReactElement } from 'react'
+import SearchPage from './components/SearchPage'
 import styled from 'styled-components'
-import { useGetIssuesLazyQuery } from './generated/graphql'
-import IssuesList from './components/IssuesList'
-import { BasicButton } from './components/atoms/Buttons'
-import { ISSUES_PER_PAGE } from './constants'
+import Header from './components/Header'
+import { Route, Switch, BrowserRouter, Redirect } from 'react-router-dom'
+import IssuePage from './components/IssuePage'
+import { ROOT_PATH, VIEW_ISSUE_PATH } from './routes'
 
 const Container = styled.div`
     display: grid;
@@ -14,55 +14,25 @@ const Container = styled.div`
     padding-top: 20px;
 `
 
-const LoadMoreButton = styled(BasicButton)`
-    justify-self: center;
-`
-
 function App(): ReactElement {
-    const [query, setQuery] = useState('')
-    const [page, setPage] = useState(1)
-    const [loadIssues, { data, fetchMore }] = useGetIssuesLazyQuery({
-        variables: {
-            query,
-            perPage: ISSUES_PER_PAGE,
-        },
-    })
-
-    const loadMoreIssues = () => {
-        typeof fetchMore !== 'undefined' &&
-            fetchMore({
-                variables: {
-                    endCursor: data?.search?.pageInfo?.endCursor,
-                    query,
-                },
-            }).then(() => setPage(page + 1))
-    }
-    const pageInfo = data?.search?.pageInfo
-    const edges = data?.search?.edges
-    const issues = edges && edges.slice(0, page * ISSUES_PER_PAGE)
-
-    const showLoadMoreButton = () => {
-        if (!issues || !edges || !pageInfo) return false
-        if (issues?.length < edges?.length) {
-            return true
-        }
-        return issues?.length === edges?.length && pageInfo.hasNextPage
-    }
-
-    useEffect(() => {
-        setPage(1)
-    }, [query])
-
     return (
-        <Container>
-            <MakeSearchQuery setQuery={setQuery} makeSearch={loadIssues} />
-            <IssuesList issues={issues} />
-            {showLoadMoreButton() && (
-                <LoadMoreButton onClick={loadMoreIssues}>
-                    Load More Issues
-                </LoadMoreButton>
-            )}
-        </Container>
+        <BrowserRouter>
+            <Container>
+                <Header />
+                <Switch>
+                    <Route exact path={ROOT_PATH}>
+                        <SearchPage />
+                    </Route>
+
+                    <Route path={VIEW_ISSUE_PATH}>
+                        <IssuePage />
+                    </Route>
+                    <Route path="*">
+                        <Redirect to={ROOT_PATH} />
+                    </Route>
+                </Switch>
+            </Container>
+        </BrowserRouter>
     )
 }
 

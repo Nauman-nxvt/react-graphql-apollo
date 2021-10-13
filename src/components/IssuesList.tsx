@@ -1,37 +1,15 @@
-import React, { ReactElement } from 'react'
+import React from 'react'
 import { SearchResult } from '../generated/graphql'
-import { ReactComponent as IconCheck } from '../icons/IconCheck.svg'
-import { ReactComponent as IconDot } from '../icons/IconDot.svg'
-import styled, { css } from 'styled-components'
+import styled from 'styled-components'
 import { convertDateToTimeAgo } from '../helpers/date-helpers'
+import { GreenDot, RedCheck } from './atoms/IssueStateIcons'
+import { Link } from 'react-router-dom'
+import ContentWrapper from './atoms/ContentWrapper'
+import IssueInfo from './IssueInfo'
 
-const IssuesListContainer = styled.div`
-    display: flex;
-    flex-direction: column;
-
-    place-self: flex-end stretch;
-    width: 90%;
-    justify-self: center;
+const IssuesListContainer = styled(ContentWrapper)`
     margin-top: 0;
     padding-top: 0;
-`
-
-const IconStyle = css`
-    width: 1rem;
-    height: 1rem;
-    margin-right: 5px;
-`
-
-const RedCheck = styled(IconCheck)`
-    ${IconStyle};
-    stroke-width: 1;
-    stroke: rgb(207, 34, 46);
-    fill: rgb(207, 34, 46);
-`
-
-const GreenDot = styled(IconDot)`
-    ${IconStyle};
-    fill: rgb(26, 127, 55);
 `
 
 const IssueList = styled.ul`
@@ -67,7 +45,7 @@ const IssueTitle = styled.div`
     }
 `
 
-const IssueInfo = styled.div`
+const IssueInfoWrapper = styled.div`
     color: #57606a;
     margin: 4px 20px;
     font-size: 0.7rem;
@@ -77,46 +55,48 @@ type IssueListProps = {
     issues: SearchResult
 }
 
-const authoredInfo = (
+export const authoredInfo = (
     createdAt: string,
     closedAt: string | null,
     author: string | undefined
 ): string => {
-    if (!author) return ''
     if (closedAt !== null) {
-        return ` by ${author} was closed ${convertDateToTimeAgo(
-            new Date(closedAt)
-        )}`
+        return ` ${
+            author ? author + ' by' : ''
+        } was closed ${convertDateToTimeAgo(new Date(closedAt))}`
     }
-    return ` opened ${convertDateToTimeAgo(new Date(createdAt))} by ${author}`
+    return ` opened ${convertDateToTimeAgo(new Date(createdAt))} by ${
+        author ? 'by ' + author : ''
+    }`
 }
 
-const IssuesList = ({ issues }: IssueListProps): ReactElement => {
+const IssuesList = ({ issues }: IssueListProps): JSX.Element => {
     return (
         <IssuesListContainer>
             <IssueList>
                 {issues &&
                     issues.map((edge) => {
-                        return edge &&
-                            edge.node &&
-                            edge.node.__typename === 'Issue' ? (
-                            <IssueListItem key={edge.node.number}>
-                                <IssueTitle>
-                                    {edge.node.state === 'OPEN' ? (
-                                        <GreenDot />
-                                    ) : (
-                                        <RedCheck />
-                                    )}
-                                    <p>{edge.node.title}</p>
-                                </IssueTitle>
-                                <IssueInfo>
-                                    #{edge.node.number}
-                                    {authoredInfo(
-                                        edge.node.createdAt,
-                                        edge.node.closedAt,
-                                        edge.node.author?.login
-                                    )}
-                                </IssueInfo>
+                        const node = edge?.node
+                        return node && node.__typename === 'Issue' ? (
+                            <IssueListItem key={node.number}>
+                                <Link to={`issue/${node.number}`}>
+                                    <IssueTitle>
+                                        {node.state === 'OPEN' ? (
+                                            <GreenDot />
+                                        ) : (
+                                            <RedCheck />
+                                        )}
+                                        <p>{node.title}</p>
+                                    </IssueTitle>
+                                </Link>
+                                <IssueInfoWrapper>
+                                    <IssueInfo
+                                        issueNumber={node.number}
+                                        createdAt={node.createdAt}
+                                        closedAt={node.closedAt}
+                                        login={node.author?.login}
+                                    />
+                                </IssueInfoWrapper>
                             </IssueListItem>
                         ) : null
                     })}

@@ -22020,6 +22020,96 @@ export type WorkflowRunPendingDeploymentRequestsArgs = {
     last?: Maybe<Scalars['Int']>
 }
 
+export type GetIssueQueryVariables = Exact<{
+    id: Scalars['Int']
+}>
+
+export type GetIssueQuery = {
+    __typename?: 'Query'
+    repository?:
+        | {
+              __typename?: 'Repository'
+              issue?:
+                  | {
+                        __typename?: 'Issue'
+                        title: string
+                        bodyHTML: any
+                        state: IssueState
+                        number: number
+                        createdAt: any
+                        closedAt?: any | null | undefined
+                        author?:
+                            | { __typename?: 'Bot'; login: string }
+                            | {
+                                  __typename?: 'EnterpriseUserAccount'
+                                  login: string
+                              }
+                            | { __typename?: 'Mannequin'; login: string }
+                            | { __typename?: 'Organization'; login: string }
+                            | { __typename?: 'User'; login: string }
+                            | null
+                            | undefined
+                        comments: {
+                            __typename?: 'IssueCommentConnection'
+                            totalCount: number
+                            pageInfo: {
+                                __typename?: 'PageInfo'
+                                hasNextPage: boolean
+                            }
+                            edges?:
+                                | Array<
+                                      | {
+                                            __typename?: 'IssueCommentEdge'
+                                            node?:
+                                                | {
+                                                      __typename?: 'IssueComment'
+                                                      createdAt: any
+                                                      databaseId?:
+                                                          | number
+                                                          | null
+                                                          | undefined
+                                                      bodyHTML: any
+                                                      author?:
+                                                          | {
+                                                                __typename?: 'Bot'
+                                                                login: string
+                                                            }
+                                                          | {
+                                                                __typename?: 'EnterpriseUserAccount'
+                                                                login: string
+                                                            }
+                                                          | {
+                                                                __typename?: 'Mannequin'
+                                                                login: string
+                                                            }
+                                                          | {
+                                                                __typename?: 'Organization'
+                                                                login: string
+                                                            }
+                                                          | {
+                                                                __typename?: 'User'
+                                                                login: string
+                                                            }
+                                                          | null
+                                                          | undefined
+                                                  }
+                                                | null
+                                                | undefined
+                                        }
+                                      | null
+                                      | undefined
+                                  >
+                                | null
+                                | undefined
+                        }
+                    }
+                  | null
+                  | undefined
+          }
+        | null
+        | undefined
+}
+
 export type GetIssuesQueryVariables = Exact<{
     query: Scalars['String']
     endCursor?: Maybe<Scalars['String']>
@@ -22088,51 +22178,86 @@ export type GetIssuesQuery = {
             | undefined
     }
 }
-export type SearchResult =
-    | null
-    | undefined
-    | (
-          | {
-                __typename?: 'SearchResultItemEdge'
-                node?:
-                    | { __typename?: 'App' }
-                    | { __typename?: 'Discussion' }
-                    | {
-                          __typename?: 'Issue'
-                          id: string
-                          title: string
-                          state: IssueState
-                          number: number
-                          createdAt: any
-                          closedAt?: any
-                          author?:
-                              | { __typename?: 'Bot'; login: string }
-                              | {
-                                    __typename?: 'EnterpriseUserAccount'
-                                    login: string
-                                }
-                              | { __typename?: 'Mannequin'; login: string }
-                              | { __typename?: 'Organization'; login: string }
-                              | { __typename?: 'User'; login: string }
-                              | null
-                              | undefined
-                          comments: {
-                              __typename?: 'IssueCommentConnection'
-                              totalCount: number
-                          }
-                      }
-                    | { __typename?: 'MarketplaceListing' }
-                    | { __typename?: 'Organization' }
-                    | { __typename?: 'PullRequest' }
-                    | { __typename?: 'Repository' }
-                    | { __typename?: 'User' }
-                    | null
-                    | undefined
-            }
-          | null
-          | undefined
-      )[]
 
+export const GetIssueDocument = gql`
+    query getIssue($id: Int!) {
+        repository(owner: "facebook", name: "react") {
+            issue(number: $id) {
+                title
+                bodyHTML
+                state
+                number
+                createdAt
+                closedAt
+                author {
+                    login
+                }
+                comments(first: 100) {
+                    pageInfo {
+                        hasNextPage
+                    }
+                    totalCount
+                    edges {
+                        node {
+                            author {
+                                login
+                            }
+                            createdAt
+                            databaseId
+                            bodyHTML
+                        }
+                    }
+                }
+            }
+        }
+    }
+`
+
+/**
+ * __useGetIssueQuery__
+ *
+ * To run a query within a React component, call `useGetIssueQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetIssueQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetIssueQuery({
+ *   variables: {
+ *      id: // value for 'id'
+ *   },
+ * });
+ */
+export function useGetIssueQuery(
+    baseOptions: Apollo.QueryHookOptions<GetIssueQuery, GetIssueQueryVariables>
+) {
+    const options = { ...defaultOptions, ...baseOptions }
+    return Apollo.useQuery<GetIssueQuery, GetIssueQueryVariables>(
+        GetIssueDocument,
+        options
+    )
+}
+export function useGetIssueLazyQuery(
+    baseOptions?: Apollo.LazyQueryHookOptions<
+        GetIssueQuery,
+        GetIssueQueryVariables
+    >
+) {
+    const options = { ...defaultOptions, ...baseOptions }
+    return Apollo.useLazyQuery<GetIssueQuery, GetIssueQueryVariables>(
+        GetIssueDocument,
+        options
+    )
+}
+export type GetIssueQueryHookResult = ReturnType<typeof useGetIssueQuery>
+export type GetIssueLazyQueryHookResult = ReturnType<
+    typeof useGetIssueLazyQuery
+>
+export type GetIssueQueryResult = Apollo.QueryResult<
+    GetIssueQuery,
+    GetIssueQueryVariables
+>
 export const GetIssuesDocument = gql`
     query getIssues($query: String!, $endCursor: String, $perPage: Int) {
         search(first: $perPage, query: $query, type: ISSUE, after: $endCursor) {
@@ -22181,6 +22306,50 @@ export const GetIssuesDocument = gql`
  *   },
  * });
  */
+export type SearchResult =
+    | null
+    | undefined
+    | (
+          | {
+                __typename?: 'SearchResultItemEdge'
+                node?:
+                    | { __typename?: 'App' }
+                    | { __typename?: 'Discussion' }
+                    | {
+                          __typename?: 'Issue'
+                          id: string
+                          title: string
+                          state: IssueState
+                          number: number
+                          createdAt: any
+                          closedAt?: any
+                          author?:
+                              | { __typename?: 'Bot'; login: string }
+                              | {
+                                    __typename?: 'EnterpriseUserAccount'
+                                    login: string
+                                }
+                              | { __typename?: 'Mannequin'; login: string }
+                              | { __typename?: 'Organization'; login: string }
+                              | { __typename?: 'User'; login: string }
+                              | null
+                              | undefined
+                          comments: {
+                              __typename?: 'IssueCommentConnection'
+                              totalCount: number
+                          }
+                      }
+                    | { __typename?: 'MarketplaceListing' }
+                    | { __typename?: 'Organization' }
+                    | { __typename?: 'PullRequest' }
+                    | { __typename?: 'Repository' }
+                    | { __typename?: 'User' }
+                    | null
+                    | undefined
+            }
+          | null
+          | undefined
+      )[]
 export function useGetIssuesQuery(
     baseOptions: Apollo.QueryHookOptions<
         GetIssuesQuery,

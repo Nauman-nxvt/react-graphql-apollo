@@ -1,19 +1,16 @@
 import styled, { css } from 'styled-components'
 import React, { Dispatch, SetStateAction, useEffect, useState } from 'react'
 import { ReactComponent as IconSearch } from '../icons/IconSearch.svg'
-import { ReactComponent as IconCheck } from '../icons/IconCheck.svg'
+import IconCheck from '../icons/IconCheck'
 import { ReactComponent as IconDot } from '../icons/IconDot.svg'
 import { ReactComponent as IconCross } from '../icons/IconCross.svg'
 import { IconButton } from './atoms/Buttons'
 import { QueryLazyOptions } from '@apollo/client'
 import { Exact, Maybe } from '../generated/graphql'
+import ContentWrapper from './atoms/ContentWrapper'
 
-const SearchBoxWrapper = styled.div`
-    display: flex;
-    flex-direction: column;
-    place-self: flex-end stretch;
-    width: 90%;
-    justify-self: center;
+const SearchBoxWrapper = styled(ContentWrapper)`
+    margin-top: 20px;
 `
 
 const SearchBox = styled.div`
@@ -82,7 +79,10 @@ const SearchIcon = styled(IconSearch)`
     height: 1.5rem;
     margin: 3px 5px 0 5px;
     position: absolute;
-    top: 22px;
+    fill: #57606a;
+    stroke-width: 2px;
+    stroke: #57606a;
+    top: 115px;
 `
 
 const Check = styled(IconCheck)`
@@ -144,12 +144,10 @@ const MakeSearchQuery = ({
 
     useEffect(() => {
         prepareQuery()
-        // makeSearch()
     }, [issuesState])
 
     const submitOnEnter = (e: React.KeyboardEvent<HTMLInputElement>) => {
         if (e.key === 'Enter') {
-            // makeSearch()
             prepareQuery()
         }
     }
@@ -162,7 +160,9 @@ const MakeSearchQuery = ({
                     type={'text'}
                     value={searchText}
                     onKeyPress={(e) => submitOnEnter(e)}
-                    onChange={(e) => setSearchText(e.target.value)}
+                    onChange={(e) =>
+                        setSearchText(e.target.value.replaceAll(':', ''))
+                    }
                 />
             </SearchBox>
             {(issuesState !== ISSUES_STATES.all || searchText !== '') && (
