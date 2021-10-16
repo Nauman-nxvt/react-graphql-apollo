@@ -1,6 +1,6 @@
 import styled, { css } from 'styled-components'
 import IconCheck from '../../icons/IconCheck'
-import { ReactComponent as IconDot } from '../../icons/IconDot.svg'
+import IconDot from '../../icons/IconDot'
 
 const IconStyle = css`
     width: 1rem;

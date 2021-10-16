@@ -19,5 +19,6 @@ module.exports = {
     plugins: ['react', '@typescript-eslint'],
     rules: {
         'no-use-before-define': 'off',
+        'no-console': 'error',
     },
 }

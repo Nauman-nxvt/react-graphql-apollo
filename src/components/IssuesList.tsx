@@ -17,6 +17,8 @@ const IssueList = styled.ul`
     border: 1px solid #d0d7de;
     padding: 0;
     margin-top: 0;
+    border-bottom-right-radius: 6px;
+    border-bottom-left-radius: 6px;
 `
 
 const IssueListItem = styled.li`
@@ -51,6 +53,14 @@ const IssueInfoWrapper = styled.div`
     font-size: 0.7rem;
 `
 
+const StyledLink = styled(Link)`
+    text-decoration: none;
+    color: black;
+    :hover {
+        color: #0969da;
+    }
+`
+
 type IssueListProps = {
     issues: SearchResult
 }
@@ -61,11 +71,11 @@ export const authoredInfo = (
     author: string | undefined
 ): string => {
     if (closedAt !== null) {
-        return ` ${
-            author ? author + ' by' : ''
-        } was closed ${convertDateToTimeAgo(new Date(closedAt))}`
+        return ` by ${author ? author : ''} was closed ${convertDateToTimeAgo(
+            new Date(closedAt)
+        )} ago`
     }
-    return ` opened ${convertDateToTimeAgo(new Date(createdAt))} by ${
+    return ` opened ${convertDateToTimeAgo(new Date(createdAt))} ago ${
         author ? 'by ' + author : ''
     }`
 }
@@ -79,7 +89,7 @@ const IssuesList = ({ issues }: IssueListProps): JSX.Element => {
                         const node = edge?.node
                         return node && node.__typename === 'Issue' ? (
                             <IssueListItem key={node.number}>
-                                <Link to={`issue/${node.number}`}>
+                                <StyledLink to={`issue/${node.number}`}>
                                     <IssueTitle>
                                         {node.state === 'OPEN' ? (
                                             <GreenDot />
@@ -88,7 +98,7 @@ const IssuesList = ({ issues }: IssueListProps): JSX.Element => {
                                         )}
                                         <p>{node.title}</p>
                                     </IssueTitle>
-                                </Link>
+                                </StyledLink>
                                 <IssueInfoWrapper>
                                     <IssueInfo
                                         issueNumber={node.number}

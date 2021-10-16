@@ -1,9 +1,9 @@
 import styled, { css } from 'styled-components'
 import React, { Dispatch, SetStateAction, useEffect, useState } from 'react'
-import { ReactComponent as IconSearch } from '../icons/IconSearch.svg'
+import IconSearch from '../icons/IconSearch'
 import IconCheck from '../icons/IconCheck'
-import { ReactComponent as IconDot } from '../icons/IconDot.svg'
-import { ReactComponent as IconCross } from '../icons/IconCross.svg'
+import IconDot from '../icons/IconDot'
+import IconCross from '../icons/IconCross'
 import { IconButton } from './atoms/Buttons'
 import { QueryLazyOptions } from '@apollo/client'
 import { Exact, Maybe } from '../generated/graphql'
@@ -38,6 +38,8 @@ const SearchButtonsContainer = styled.div`
     justify-content: flex-start;
     min-width: 0;
     border: 1px solid #d0d7de;
+    border-top-right-radius: 6px;
+    border-top-left-radius: 6px;
 `
 
 const IssueStateButton = styled(IconButton)<{ isSelected: boolean }>`

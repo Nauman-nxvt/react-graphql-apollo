@@ -39,6 +39,9 @@ const IssueInfoWrapper = styled.div`
     color: #57606a;
     margin: 4px 10px;
     font-size: 0.9rem;
+    span:first-of-type {
+        font-weight: bold;
+    }
 `
 
 const Separator = styled.div`

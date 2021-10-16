@@ -1,6 +1,6 @@
-import React from 'react'
+import React, { SVGAttributes } from 'react'
 
-const IconLogo = (props) => (
+const IconLogo = (props: SVGAttributes<SVGElement>): JSX.Element => (
     <svg viewBox="0 0 16 16" role="img" {...props}>
         <path
             fillRule="evenodd"

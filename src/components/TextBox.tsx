@@ -19,8 +19,16 @@ const CommentBody = styled.div`
     border: 1px solid #d0d7de;
     border-top: 0;
     padding: 10px;
+    line-height: 1.5;
     border-bottom-left-radius: 6px;
     border-bottom-right-radius: 6px;
+  pre {
+    padding: 16px;
+    overflow: auto;
+    font-size: 85%;
+    line-height: 1.45;
+    background-color: #f6f8fa;
+    border-radius: 6px;
 `
 type CommentProps = {
     login: string | undefined
