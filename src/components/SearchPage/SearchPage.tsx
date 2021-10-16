@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from 'react'
 import styled from 'styled-components'
-import MakeSearchQuery from './MakeSearchQuery'
-import IssuesList from './IssuesList'
-import { BasicButton } from './atoms/Buttons'
-import { useGetIssuesLazyQuery } from '../generated/graphql'
-import { ISSUES_PER_PAGE } from '../constants'
-import Message from './atoms/Message'
+import MakeSearchQuery from '../MakeSearchQuery/MakeSearchQuery'
+import IssuesList from '../IssuesList/IssuesList'
+import { BasicButton } from '../atoms/Buttons'
+import { useGetIssuesLazyQuery } from '../../generated/graphql'
+import { ISSUES_PER_PAGE } from '../../constants'
+import Message from '../atoms/Message'
 
 const LoadMoreButton = styled(BasicButton)`
     justify-self: center;
@@ -45,12 +45,16 @@ function SearchPage(): JSX.Element {
 
     useEffect(() => {
         setPage(1)
+        loadIssues()
     }, [query])
 
     return (
         <>
-            <MakeSearchQuery setQuery={setQuery} makeSearch={loadIssues} />
+            <MakeSearchQuery setQuery={setQuery} />
             {called && loading && <Message>Fetching Results..</Message>}
+            {issues?.length === 0 && (
+                <Message>No matching issues found</Message>
+            )}
             <IssuesList issues={issues} />
             {showLoadMoreButton() && (
                 <LoadMoreButton onClick={loadMoreIssues}>

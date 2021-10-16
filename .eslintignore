@@ -2,6 +2,7 @@ node-modules
 build
 src/generated
 src/reportWebVitals.ts
+src/setupTests.ts
 yarn.lock
 **/*.css
 **/*.html

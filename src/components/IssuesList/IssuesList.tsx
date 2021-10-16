@@ -1,11 +1,10 @@
 import React from 'react'
-import { SearchResult } from '../generated/graphql'
+import { SearchResult } from '../../generated/graphql'
 import styled from 'styled-components'
-import { convertDateToTimeAgo } from '../helpers/date-helpers'
-import { GreenDot, RedCheck } from './atoms/IssueStateIcons'
+import { GreenDot, RedCheck } from '../atoms/IssueStateIcons'
 import { Link } from 'react-router-dom'
-import ContentWrapper from './atoms/ContentWrapper'
-import IssueInfo from './IssueInfo'
+import ContentWrapper from '../atoms/ContentWrapper'
+import IssueInfo from '../IssueInfo'
 
 const IssuesListContainer = styled(ContentWrapper)`
     margin-top: 0;
@@ -63,21 +62,6 @@ const StyledLink = styled(Link)`
 
 type IssueListProps = {
     issues: SearchResult
-}
-
-export const authoredInfo = (
-    createdAt: string,
-    closedAt: string | null,
-    author: string | undefined
-): string => {
-    if (closedAt !== null) {
-        return ` by ${author ? author : ''} was closed ${convertDateToTimeAgo(
-            new Date(closedAt)
-        )} ago`
-    }
-    return ` opened ${convertDateToTimeAgo(new Date(createdAt))} ago ${
-        author ? 'by ' + author : ''
-    }`
 }
 
 const IssuesList = ({ issues }: IssueListProps): JSX.Element => {

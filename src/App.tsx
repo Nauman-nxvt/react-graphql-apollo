@@ -1,9 +1,9 @@
-import React, { ReactElement } from 'react'
-import SearchPage from './components/SearchPage'
+import React from 'react'
+import SearchPage from './components/SearchPage/SearchPage'
 import styled from 'styled-components'
 import Header from './components/Header'
 import { Route, Switch, BrowserRouter, Redirect } from 'react-router-dom'
-import IssuePage from './components/IssuePage'
+import IssuePage from './components/IssuePage/IssuePage'
 import { ROOT_PATH, VIEW_ISSUE_PATH } from './routes'
 
 const Container = styled.div`
@@ -14,7 +14,7 @@ const Container = styled.div`
     padding-top: 20px;
 `
 
-function App(): ReactElement {
+function App(): JSX.Element {
     return (
         <BrowserRouter>
             <Container>

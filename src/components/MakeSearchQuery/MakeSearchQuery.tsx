@@ -1,13 +1,12 @@
 import styled, { css } from 'styled-components'
 import React, { Dispatch, SetStateAction, useEffect, useState } from 'react'
-import IconSearch from '../icons/IconSearch'
-import IconCheck from '../icons/IconCheck'
-import IconDot from '../icons/IconDot'
-import IconCross from '../icons/IconCross'
-import { IconButton } from './atoms/Buttons'
-import { QueryLazyOptions } from '@apollo/client'
-import { Exact, Maybe } from '../generated/graphql'
-import ContentWrapper from './atoms/ContentWrapper'
+import IconSearch from '../../icons/IconSearch'
+import IconCheck from '../../icons/IconCheck'
+import IconDot from '../../icons/IconDot'
+import IconCross from '../../icons/IconCross'
+import { IconButton } from '../atoms/Buttons'
+import ContentWrapper from '../atoms/ContentWrapper'
+import { DEFAULT_SEARCH_QUERY, SEARCH_FIELD_PLACEHOLDER } from '../../constants'
 
 const SearchBoxWrapper = styled(ContentWrapper)`
     margin-top: 20px;
@@ -104,17 +103,6 @@ const ClearSearch = styled.div`
 
 type MakeSearchQueryProps = {
     setQuery: Dispatch<SetStateAction<string>>
-    makeSearch: (
-        options?:
-            | QueryLazyOptions<
-                  Exact<{
-                      query: string
-                      endCursor?: Maybe<string> | undefined
-                      perPage?: Maybe<number> | undefined
-                  }>
-              >
-            | undefined
-    ) => void
 }
 
 const ISSUES_STATES = {
@@ -123,20 +111,15 @@ const ISSUES_STATES = {
     all: 'all',
 }
 
-const MakeSearchQuery = ({
-    setQuery,
-    makeSearch,
-}: MakeSearchQueryProps): JSX.Element => {
+const MakeSearchQuery = ({ setQuery }: MakeSearchQueryProps): JSX.Element => {
     const [searchText, setSearchText] = useState('')
     const [issuesState, setIssuesState] = useState(ISSUES_STATES.all)
 
     const prepareQuery = () => {
-        setQuery(
-            `repo:facebook/react is:issue ${searchText} in:title,body ${
-                issuesState !== ISSUES_STATES.all ? `is:${issuesState}` : ''
-            }`
-        )
-        makeSearch()
+        let query = DEFAULT_SEARCH_QUERY
+        if (searchText !== '') query += ` ${searchText}`
+        if (issuesState !== ISSUES_STATES.all) query += ` is:${issuesState}`
+        setQuery(query)
     }
 
     const clearSearch = () => {
@@ -161,6 +144,7 @@ const MakeSearchQuery = ({
                 <input
                     type={'text'}
                     value={searchText}
+                    placeholder={SEARCH_FIELD_PLACEHOLDER}
                     onKeyPress={(e) => submitOnEnter(e)}
                     onChange={(e) =>
                         setSearchText(e.target.value.replaceAll(':', ''))
@@ -181,6 +165,7 @@ const MakeSearchQuery = ({
                 <IssueStateButton
                     isSelected={issuesState === ISSUES_STATES.open}
                     onClick={() => setIssuesState(ISSUES_STATES.open)}
+                    data-testid={'issue-filter-open'}
                 >
                     <Dot /> <span>Open</span>
                 </IssueStateButton>

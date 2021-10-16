@@ -1,12 +1,12 @@
 import React from 'react'
 import { useParams } from 'react-router-dom'
-import { useGetIssueQuery } from '../generated/graphql'
+import { useGetIssueQuery } from '../../generated/graphql'
 import styled from 'styled-components'
-import { GreenDot, RedCheck } from './atoms/IssueStateIcons'
-import ContentWrapper from './atoms/ContentWrapper'
-import TextBox from './TextBox'
-import IssueInfo from './IssueInfo'
-import Message from './atoms/Message'
+import { GreenDot, RedCheck } from '../atoms/IssueStateIcons'
+import ContentWrapper from '../atoms/ContentWrapper'
+import TextBox from '../TextBox'
+import IssueInfo from '../IssueInfo'
+import Message from '../atoms/Message'
 
 const IssueWrapper = styled(ContentWrapper)`
     margin-top: 0;
