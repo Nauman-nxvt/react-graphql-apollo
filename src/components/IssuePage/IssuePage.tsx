@@ -56,7 +56,7 @@ type IssueParams = {
 
 function IssuePage(): JSX.Element {
     const { id } = useParams<IssueParams>()
-    if (!id) return <h2>Invalid ID</h2>
+    if (!id) return <Message>ID not found</Message>
     const issueId = parseInt(id)
     const { data, called, loading } = useGetIssueQuery({
         fetchPolicy: 'cache-and-network',

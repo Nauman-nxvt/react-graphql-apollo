@@ -80,7 +80,9 @@ const IssuesList = ({ issues }: IssueListProps): JSX.Element => {
                                         ) : (
                                             <RedCheck />
                                         )}
-                                        <p>{node.title}</p>
+                                        <p data-testid="issue-title">
+                                            {node.title}
+                                        </p>
                                     </IssueTitle>
                                 </StyledLink>
                                 <IssueInfoWrapper>

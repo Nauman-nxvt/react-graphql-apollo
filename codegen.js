@@ -12,7 +12,7 @@ module.exports = {
     documents: ['./src/graphql/**/*.ts'],
     overwrite: true,
     generates: {
-        './src/generated/graphql.tsx': {
+        './src/generated/graphql.ts': {
             plugins: [
                 'typescript',
                 'typescript-operations',

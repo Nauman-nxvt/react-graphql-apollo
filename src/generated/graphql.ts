@@ -22311,15 +22311,15 @@ export type SearchResult =
     | undefined
     | (
           | {
-                __typename?: 'SearchResultItemEdge'
+                __typename?: string //'SearchResultItemEdge'
                 node?:
                     | { __typename?: 'App' }
                     | { __typename?: 'Discussion' }
                     | {
-                          __typename?: 'Issue'
+                          __typename?: string //'Issue'
                           id: string
                           title: string
-                          state: IssueState
+                          state: string //IssueState
                           number: number
                           createdAt: any
                           closedAt?: any

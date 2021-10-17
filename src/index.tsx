@@ -47,6 +47,13 @@ const client = new ApolloClient({
                     },
                 },
             },
+            Repository: {
+                fields: {
+                    issue: {
+                        keyArgs: ['number'],
+                    },
+                },
+            },
         },
     }),
 })
