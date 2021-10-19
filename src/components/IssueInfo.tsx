@@ -1,7 +1,7 @@
 import React from 'react'
 import { convertDateToTimeAgo } from '../helpers/date-helpers'
 
-type IssueInfoProps = {
+export type IssueInfoProps = {
     issueNumber: number
     createdAt: string
     closedAt: string | null

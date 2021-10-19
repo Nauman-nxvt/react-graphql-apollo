@@ -5,7 +5,7 @@ import IconCheckRound from '../../icons/IconCheckRound'
 
 export const RedCheck = styled(IconCheckRound)`
     ${BaseIconStyle};
-    fill: rgb(207, 34, 46);
+    fill: ${({ theme }) => theme.colors.red};
 `
 
 export const GreenDot = styled(IconDot)`

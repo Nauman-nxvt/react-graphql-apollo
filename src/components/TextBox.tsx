@@ -13,12 +13,16 @@ const CommentHeader = styled.div`
     border-top-left-radius: 6px;
     border-top-right-radius: 6px;
     color: ${({ theme }) => theme.colors.grey};
+    span:first-of-type {
+        font-weight: 600;
+        margin-right: ${({ theme }) => theme.unit1};
+    }
 `
 
 const CommentBody = styled.div`
     border: 1px solid ${({ theme }) => theme.colors.paleWhite};
     border-top: 0;
-    padding: ${({ theme }) => theme.unit2};
+    padding: ${({ theme }) => theme.unit3};
     line-height: 1.5;
     border-bottom-left-radius: 6px;
     border-bottom-right-radius: 6px;
@@ -45,8 +49,9 @@ function TextBox({
         return (
             <>
                 <CommentHeader>
+                    <span>{login}</span>
                     <span>
-                        {`${login} commented ${convertDateToTimeAgo(
+                        {`commented ${convertDateToTimeAgo(
                             new Date(createdAt)
                         )}`}
                     </span>

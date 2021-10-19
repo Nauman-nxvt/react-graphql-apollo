@@ -2,21 +2,23 @@ import React from 'react'
 import { useParams } from 'react-router-dom'
 import { useGetIssueQuery } from '../../generated/graphql'
 import styled from 'styled-components'
-import { GreenDot, RedCheck } from '../atoms/IssueStateIcons'
 import ContentWrapper from '../atoms/ContentWrapper'
 import TextBox from '../TextBox'
-import IssueInfo from '../IssueInfo'
 import Message from '../atoms/Message'
+import { BasicButton } from '../atoms/Buttons'
+import { convertDateToTimeAgo } from '../../helpers/date-helpers'
+import IconDot from '../../icons/IconDot'
+import IconCheckRound from '../../icons/IconCheckRound'
+import BaseIconStyle from '../atoms/BaseIconStyle'
 
 const IssueWrapper = styled(ContentWrapper)`
-    margin-top: 0;
+    margin-top: ${({ theme }) => theme.unit2};
     padding-top: 0;
 `
 
 const Issue = styled.div`
     display: flex;
     flex-direction: column;
-    padding: ${({ theme }) => theme.unit2};
 `
 
 const IssueTitle = styled.div`
@@ -33,11 +35,14 @@ const IssueTitle = styled.div`
         font-weight: 400;
         line-height: 1.5;
     }
+    span {
+        color: ${({ theme }) => theme.colors.grey};
+    }
 `
 
 const IssueInfoWrapper = styled.div`
     color: ${({ theme }) => theme.colors.grey};
-    margin: ${({ theme }) => `${theme.unit1} ${theme.unit2}`};
+    margin: ${({ theme }) => `${theme.unit1} ${theme.unit2} ${theme.unit2} 0`};
     span:first-of-type {
         font-weight: bold;
     }
@@ -51,6 +56,76 @@ const Separator = styled.div`
 
 type IssueParams = {
     id: string
+}
+
+const RoundBtn = styled(BasicButton)`
+    width: auto;
+    padding: ${({ theme }) => `${theme.unit1} ${theme.unit3}`};
+    font-size: ${({ theme }) => theme.fontSize4};
+    font-weight: 600;
+    line-height: 20px;
+    text-align: center;
+    white-space: nowrap;
+    border-radius: 2rem;
+    margin-right: ${({ theme }) => theme.unit1};
+`
+const ButtonOpenIssue = styled(RoundBtn)`
+    background: ${({ theme }) => theme.colors.green};
+`
+const ButtonClosedIssue = styled(RoundBtn)`
+    background: ${({ theme }) => theme.colors.red};
+`
+
+const WhiteCheck = styled(IconCheckRound)`
+    ${BaseIconStyle};
+    fill: ${({ theme }) => theme.colors.white};
+`
+
+const WhiteDot = styled(IconDot)`
+    ${BaseIconStyle};
+    fill: ${({ theme }) => theme.colors.white};
+`
+
+const InfoWrapper = styled.section`
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    padding-left: 0;
+    span {
+        margin-left: ${({ theme }) => theme.unit1};
+    }
+`
+
+const IssueInfo = ({
+    createdAt,
+    closedAt,
+    login,
+}: {
+    createdAt: string
+    closedAt: string | null
+    login: string | undefined
+}): JSX.Element => {
+    return (
+        <InfoWrapper>
+            {closedAt ? (
+                <ButtonClosedIssue>
+                    <WhiteCheck /> Closed
+                </ButtonClosedIssue>
+            ) : (
+                <ButtonOpenIssue>
+                    <WhiteDot /> Open
+                </ButtonOpenIssue>
+            )}
+
+            <span>{login}</span>
+            {createdAt && (
+                <span>{`opened this issue ${convertDateToTimeAgo(
+                    new Date(createdAt)
+                )}`}</span>
+            )}
+        </InfoWrapper>
+    )
 }
 
 function IssuePage(): JSX.Element {
@@ -73,12 +148,12 @@ function IssuePage(): JSX.Element {
         <IssueWrapper>
             <Issue>
                 <IssueTitle>
-                    {issue.state === 'OPEN' ? <GreenDot /> : <RedCheck />}
-                    <h1>{issue.title}</h1>
+                    <h1>
+                        {issue.title} <span>#{issue.number}</span>
+                    </h1>
                 </IssueTitle>
                 <IssueInfoWrapper>
                     <IssueInfo
-                        issueNumber={issue.number}
                         createdAt={issue.createdAt}
                         closedAt={issue.closedAt}
                         login={issue.author?.login}

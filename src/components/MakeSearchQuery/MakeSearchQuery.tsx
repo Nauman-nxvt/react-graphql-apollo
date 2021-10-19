@@ -32,7 +32,7 @@ const SearchBox = styled.div`
 `
 const SearchButtonsContainer = styled.div`
     padding: ${({ theme }) => theme.unit3};
-    padding-left: ${({ theme }) => theme.unit2};
+    padding-left: ${({ theme }) => theme.unit1};
     margin: ${({ theme }) => `${theme.unit4} 0 0 0`};
     background-color: ${({ theme }) => theme.colors.lightGrey};
     display: flex;
