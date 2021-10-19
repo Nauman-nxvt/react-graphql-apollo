@@ -32,7 +32,8 @@ const SearchBox = styled.div`
 `
 const SearchButtonsContainer = styled.div`
     padding: ${({ theme }) => theme.unit3};
-    margin: ${({ theme }) => theme.unit4} 0 0 0;
+    padding-left: ${({ theme }) => theme.unit2};
+    margin: ${({ theme }) => `${theme.unit4} 0 0 0`};
     background-color: ${({ theme }) => theme.colors.lightGrey};
     display: flex;
     flex-direction: row;
@@ -82,7 +83,7 @@ const SearchIcon = styled(IconSearch)`
     fill: ${({ theme }) => theme.colors.grey};
     stroke-width: 2px;
     stroke: ${({ theme }) => theme.colors.grey};
-    top: 115px;
+    top: 93px;
 `
 
 const Check = styled(IconCheck)`

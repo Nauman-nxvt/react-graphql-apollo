@@ -6,6 +6,7 @@ import { BasicButton } from '../atoms/Buttons'
 import { useGetIssuesLazyQuery } from '../../generated/graphql'
 import { ISSUES_PER_PAGE } from '../../constants'
 import Message from '../atoms/Message'
+import Skeleton from 'react-loading-skeleton'
 
 const SearchWrapper = styled.div`
     width: 95%;
@@ -56,7 +57,7 @@ function SearchPage(): JSX.Element {
     return (
         <SearchWrapper>
             <MakeSearchQuery setQuery={setQuery} />
-            {called && loading && <Message>Fetching Results..</Message>}
+            {called && loading && <Skeleton count={8} height={90} />}
             {edges?.length === 0 ? (
                 <Message>No matching issues found</Message>
             ) : (

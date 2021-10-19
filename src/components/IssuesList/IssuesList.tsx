@@ -16,6 +16,7 @@ const IssueList = styled.ul`
     border: 1px solid ${({ theme }) => theme.colors.paleWhite};
     padding: 0;
     margin-top: 0;
+    padding-left: ${({ theme }) => theme.unit1};
     border-bottom-right-radius: 6px;
     border-bottom-left-radius: 6px;
 `
@@ -54,7 +55,7 @@ const IssueInfoWrapper = styled.div`
 
 const StyledLink = styled(Link)`
     text-decoration: none;
-    color: black;
+    color: ${({ theme }) => theme.colors.black};
     :hover {
         color: ${({ theme }) => theme.colors.royalBlue};
     }

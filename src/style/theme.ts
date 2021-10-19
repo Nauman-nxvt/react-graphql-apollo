@@ -9,6 +9,8 @@ export const theme = {
         lightestGrey: '#f6f8fa',
         black: '#24292f',
         royalBlue: '#0969da',
+        red: '#cf222e',
+        green: 'rgb(26, 127, 55)',
     },
     /* Margins */
     unit1: '0.25rem',

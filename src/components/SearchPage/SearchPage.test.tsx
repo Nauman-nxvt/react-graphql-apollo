@@ -29,7 +29,9 @@ describe('<SearchPage/>', () => {
         expect(
             screen.getByPlaceholderText(SEARCH_FIELD_PLACEHOLDER)
         ).toBeInTheDocument()
-        expect(screen.getByText('Fetching Results..')).toBeInTheDocument()
+        expect(
+            document.getElementsByClassName('react-loading-skeleton')[0]
+        ).toBeInTheDocument()
         expect(
             screen.queryByRole('button', { name: 'Load More Issues' })
         ).toBeNull()

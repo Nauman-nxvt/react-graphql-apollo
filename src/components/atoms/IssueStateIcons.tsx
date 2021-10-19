@@ -1,12 +1,10 @@
 import styled from 'styled-components'
-import IconCheck from '../../icons/IconCheck'
 import IconDot from '../../icons/IconDot'
 import BaseIconStyle from './BaseIconStyle'
+import IconCheckRound from '../../icons/IconCheckRound'
 
-export const RedCheck = styled(IconCheck)`
+export const RedCheck = styled(IconCheckRound)`
     ${BaseIconStyle};
-    stroke-width: 1;
-    stroke: rgb(207, 34, 46);
     fill: rgb(207, 34, 46);
 `
 

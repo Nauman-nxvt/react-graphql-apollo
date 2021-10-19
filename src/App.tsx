@@ -11,7 +11,7 @@ const Container = styled.div`
     width: 100%;
     height: auto;
     grid-template-columns: 100%;
-    padding-top: ${({ theme }) => theme.unit4};
+    overflow: hidden;
 `
 
 function App(): JSX.Element {
