@@ -5,10 +5,73 @@ import { Route, RouteComponentProps, Router } from 'react-router-dom'
 import { MockedProvider } from '@apollo/client/testing'
 import * as React from 'react'
 import { StaticContext } from 'react-router'
-import { GetIssueQuery, GetIssueQueryVariables } from '../generated/graphql'
-import { DocumentNode } from '@apollo/client'
+import {
+    GetIssueQuery,
+    GetIssueQueryVariables,
+    GetIssuesQuery,
+    GetIssuesQueryVariables,
+} from '../generated/graphql'
+import { DocumentNode, InMemoryCache } from '@apollo/client'
 
-export function renderWithRouter(
+const memoryCache = new InMemoryCache({
+    typePolicies: {
+        Query: {
+            fields: {
+                search: {
+                    keyArgs: ['query'],
+                    merge(existing, incoming) {
+                        if (existing) {
+                            if (
+                                existing &&
+                                existing.cursors.includes(
+                                    incoming.pageInfo.endCursor
+                                )
+                            ) {
+                                return existing
+                            }
+
+                            const combined = {
+                                ...incoming,
+                                cursors: [
+                                    ...existing.cursors,
+                                    incoming.pageInfo.endCursor,
+                                ],
+                            }
+                            combined.edges = [
+                                ...existing.edges,
+                                ...incoming.edges,
+                            ]
+                            return combined
+                        }
+                        return {
+                            ...incoming,
+                            cursors: [incoming.pageInfo.endCursor],
+                        }
+                    },
+                },
+            },
+        },
+        Repository: {
+            fields: {
+                issue: {
+                    keyArgs: ['number'],
+                },
+            },
+        },
+    },
+})
+
+export type ApolloMockType = {
+    request: {
+        query: DocumentNode
+        variables: GetIssueQueryVariables | GetIssuesQueryVariables
+    }
+    result:
+        | Partial<Apollo.QueryResult<GetIssueQuery, GetIssueQueryVariables>>
+        | Partial<Apollo.QueryResult<GetIssuesQuery, GetIssuesQueryVariables>>
+}[]
+
+export function renderWithProviders(
     ui:
         | React.ComponentType<any>
         | React.ComponentType<RouteComponentProps<any, StaticContext, unknown>>
@@ -22,17 +85,16 @@ export function renderWithRouter(
         route: string | undefined
         history?: MemoryHistory<unknown>
     },
-    apolloMock?: {
-        request: { query: DocumentNode; variables: GetIssueQueryVariables }
-        result: Partial<
-            Apollo.QueryResult<GetIssueQuery, GetIssueQueryVariables>
-        >
-    }[]
+    apolloMock?: ApolloMockType
 ) {
     return {
         ...render(
             <Router history={history}>
-                <MockedProvider mocks={apolloMock} addTypename={false}>
+                <MockedProvider
+                    mocks={apolloMock}
+                    addTypename={true}
+                    cache={memoryCache}
+                >
                     <Route path={path} component={ui} />
                 </MockedProvider>
             </Router>

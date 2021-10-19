@@ -35,14 +35,32 @@ const client = new ApolloClient({
                         keyArgs: ['query'],
                         merge(existing, incoming) {
                             if (existing) {
-                                const combined = { ...incoming }
+                                if (
+                                    existing &&
+                                    existing.cursors.includes(
+                                        incoming.pageInfo.endCursor
+                                    )
+                                ) {
+                                    return existing
+                                }
+
+                                const combined = {
+                                    ...incoming,
+                                    cursors: [
+                                        ...existing.cursors,
+                                        incoming.pageInfo.endCursor,
+                                    ],
+                                }
                                 combined.edges = [
                                     ...existing.edges,
                                     ...incoming.edges,
                                 ]
                                 return combined
                             }
-                            return incoming
+                            return {
+                                ...incoming,
+                                cursors: [incoming.pageInfo.endCursor],
+                            }
                         },
                     },
                 },
@@ -56,13 +74,12 @@ const client = new ApolloClient({
             },
         },
     }),
+    connectToDevTools: true,
 })
 ReactDOM.render(
-    <React.StrictMode>
-        <ApolloProvider client={client}>
-            <App />
-        </ApolloProvider>
-    </React.StrictMode>,
+    <ApolloProvider client={client}>
+        <App />
+    </ApolloProvider>,
     document.getElementById('root')
 )
 

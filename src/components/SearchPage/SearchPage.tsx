@@ -52,10 +52,11 @@ function SearchPage(): JSX.Element {
         <>
             <MakeSearchQuery setQuery={setQuery} />
             {called && loading && <Message>Fetching Results..</Message>}
-            {issues?.length === 0 && (
+            {edges?.length === 0 ? (
                 <Message>No matching issues found</Message>
+            ) : (
+                <IssuesList issues={issues} />
             )}
-            <IssuesList issues={issues} />
             {showLoadMoreButton() && (
                 <LoadMoreButton onClick={loadMoreIssues}>
                     Load More Issues

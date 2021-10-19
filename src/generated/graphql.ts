@@ -22131,10 +22131,8 @@ export type GetIssuesQuery = {
                   | {
                         __typename?: 'SearchResultItemEdge'
                         node?:
-                            | { __typename?: 'App' }
-                            | { __typename?: 'Discussion' }
                             | {
-                                  __typename?: 'Issue'
+                                  // __typename?: 'string''Issue'
                                   id: string
                                   title: string
                                   state: IssueState
@@ -22163,11 +22161,6 @@ export type GetIssuesQuery = {
                                       totalCount: number
                                   }
                               }
-                            | { __typename?: 'MarketplaceListing' }
-                            | { __typename?: 'Organization' }
-                            | { __typename?: 'PullRequest' }
-                            | { __typename?: 'Repository' }
-                            | { __typename?: 'User' }
                             | null
                             | undefined
                     }
@@ -22313,8 +22306,6 @@ export type SearchResult =
           | {
                 __typename?: string //'SearchResultItemEdge'
                 node?:
-                    | { __typename?: 'App' }
-                    | { __typename?: 'Discussion' }
                     | {
                           __typename?: string //'Issue'
                           id: string
@@ -22339,11 +22330,6 @@ export type SearchResult =
                               totalCount: number
                           }
                       }
-                    | { __typename?: 'MarketplaceListing' }
-                    | { __typename?: 'Organization' }
-                    | { __typename?: 'PullRequest' }
-                    | { __typename?: 'Repository' }
-                    | { __typename?: 'User' }
                     | null
                     | undefined
             }

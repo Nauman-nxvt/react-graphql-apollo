@@ -114,22 +114,31 @@ const ISSUES_STATES = {
 const MakeSearchQuery = ({ setQuery }: MakeSearchQueryProps): JSX.Element => {
     const [searchText, setSearchText] = useState('')
     const [issuesState, setIssuesState] = useState(ISSUES_STATES.all)
+    const [callDelayedPrepareQuery, setCallDelayedPrepareQuery] =
+        useState(false)
 
     const prepareQuery = () => {
         let query = DEFAULT_SEARCH_QUERY
         if (searchText !== '') query += ` ${searchText}`
         if (issuesState !== ISSUES_STATES.all) query += ` is:${issuesState}`
         setQuery(query)
+        callDelayedPrepareQuery && setCallDelayedPrepareQuery(false)
     }
 
     const clearSearch = () => {
         setSearchText('')
         setIssuesState(ISSUES_STATES.all)
+        setCallDelayedPrepareQuery(true)
     }
 
     useEffect(() => {
         prepareQuery()
     }, [issuesState])
+    useEffect(() => {
+        if (callDelayedPrepareQuery) {
+            prepareQuery()
+        }
+    }, [callDelayedPrepareQuery])
 
     const submitOnEnter = (e: React.KeyboardEvent<HTMLInputElement>) => {
         if (e.key === 'Enter') {
@@ -165,7 +174,6 @@ const MakeSearchQuery = ({ setQuery }: MakeSearchQueryProps): JSX.Element => {
                 <IssueStateButton
                     isSelected={issuesState === ISSUES_STATES.open}
                     onClick={() => setIssuesState(ISSUES_STATES.open)}
-                    data-testid={'issue-filter-open'}
                 >
                     <Dot /> <span>Open</span>
                 </IssueStateButton>

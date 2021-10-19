@@ -27,7 +27,7 @@ describe('<MakeSearchQuery />', () => {
     })
 
     it('calls setQuery when Open filter is clicked', () => {
-        const issueFilterOpen = screen.getByTestId('issue-filter-open')
+        const issueFilterOpen = screen.getByRole('button', { name: 'Open' })
         fireEvent.click(issueFilterOpen)
         expect(setQuery).toHaveBeenLastCalledWith(
             `${DEFAULT_SEARCH_QUERY} is:open`
