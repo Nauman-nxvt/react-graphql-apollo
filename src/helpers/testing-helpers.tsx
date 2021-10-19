@@ -12,6 +12,8 @@ import {
     GetIssuesQueryVariables,
 } from '../generated/graphql'
 import { DocumentNode, InMemoryCache } from '@apollo/client'
+import { ThemeProvider } from 'styled-components'
+import { theme } from '../style/theme'
 
 const memoryCache = new InMemoryCache({
     typePolicies: {
@@ -95,7 +97,9 @@ export function renderWithProviders(
                     addTypename={true}
                     cache={memoryCache}
                 >
-                    <Route path={path} component={ui} />
+                    <ThemeProvider theme={theme}>
+                        <Route path={path} component={ui} />
+                    </ThemeProvider>
                 </MockedProvider>
             </Router>
         ),

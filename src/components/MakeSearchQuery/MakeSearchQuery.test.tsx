@@ -4,12 +4,18 @@ import { fireEvent, render, screen } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import MakeSearchQuery from './MakeSearchQuery'
 import { DEFAULT_SEARCH_QUERY, SEARCH_FIELD_PLACEHOLDER } from '../../constants'
+import { ThemeProvider } from 'styled-components'
+import { theme } from '../../style/theme'
 
 describe('<MakeSearchQuery />', () => {
     const setQuery = jest.fn()
 
     beforeEach(() => {
-        render(<MakeSearchQuery setQuery={setQuery} />)
+        render(
+            <ThemeProvider theme={theme}>
+                <MakeSearchQuery setQuery={setQuery} />
+            </ThemeProvider>
+        )
     })
 
     it('renders MakeSearchQuery component and calls setQuery on Page load', () => {

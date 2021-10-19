@@ -4,19 +4,19 @@ import styled from 'styled-components'
 const CommentHeader = styled.div`
     padding: 16px;
     margin: 20px 0 0 0;
-    background-color: rgb(246, 248, 250);
+    background-color: ${({ theme }) => theme.colors.lightGrey};
     display: flex;
     flex-direction: row;
     justify-content: flex-start;
     min-width: 0;
-    border: 1px solid #d0d7de;
+    border: 1px solid ${({ theme }) => theme.colors.paleWhite};
     border-top-left-radius: 6px;
     border-top-right-radius: 6px;
-    color: #57606a;
+    color: ${({ theme }) => theme.colors.grey};
 `
 
 const CommentBody = styled.div`
-    border: 1px solid #d0d7de;
+    border: 1px solid ${({ theme }) => theme.colors.paleWhite};
     border-top: 0;
     padding: 10px;
     line-height: 1.5;
@@ -27,7 +27,7 @@ const CommentBody = styled.div`
     overflow: auto;
     font-size: 85%;
     line-height: 1.45;
-    background-color: #f6f8fa;
+    background-color: ${({ theme }) => theme.colors.lightestGrey};
     border-radius: 6px;
 `
 type CommentProps = {

@@ -2,17 +2,26 @@ import '@testing-library/jest-dom/extend-expect'
 import * as React from 'react'
 import { fireEvent, render, screen } from '@testing-library/react'
 import IssuesList from './IssuesList'
-import { BrowserRouter, Router } from 'react-router-dom'
+import { Router } from 'react-router-dom'
 import { mockIssuesArray } from '../../graphql/mockResponses/mockIssuesArray'
 import { createMemoryHistory } from 'history'
+import { theme } from '../../style/theme'
+import { ThemeProvider } from 'styled-components'
 
 describe('<IssuesList/>', () => {
-    it('renders all Issues which are passed to it', () => {
+    const renderWithProviders = () => {
+        const history = createMemoryHistory()
         render(
-            <BrowserRouter>
-                <IssuesList issues={mockIssuesArray} />
-            </BrowserRouter>
+            <Router history={history}>
+                <ThemeProvider theme={theme}>
+                    <IssuesList issues={mockIssuesArray} />
+                </ThemeProvider>
+            </Router>
         )
+        return history
+    }
+    it('renders all Issues which are passed to it', () => {
+        renderWithProviders()
         const issueTitles = screen
             .getAllByTestId('issue-title')
             .map((p) => p.textContent)
@@ -23,12 +32,7 @@ describe('<IssuesList/>', () => {
     })
 
     it('redirects to issue/:id when issue link is clicked', () => {
-        const history = createMemoryHistory()
-        render(
-            <Router history={history}>
-                <IssuesList issues={mockIssuesArray} />
-            </Router>
-        )
+        const history = renderWithProviders()
         const firstIssue = mockIssuesArray[0].node
         const firstIssueHref = `/issue/${firstIssue.number}`
         const issueLink = screen.getByText(firstIssue.title)

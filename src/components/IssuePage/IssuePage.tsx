@@ -36,9 +36,8 @@ const IssueTitle = styled.div`
 `
 
 const IssueInfoWrapper = styled.div`
-    color: #57606a;
+    color: ${({ theme }) => theme.colors.grey};
     margin: 4px 10px;
-    font-size: 0.9rem;
     span:first-of-type {
         font-weight: bold;
     }
@@ -47,7 +46,7 @@ const IssueInfoWrapper = styled.div`
 const Separator = styled.div`
     width: 100%;
     margin-top: 10px;
-    border-bottom: 1px solid #d0d7de;
+    border-bottom: 1px solid ${({ theme }) => theme.colors.paleWhite};
 `
 
 type IssueParams = {

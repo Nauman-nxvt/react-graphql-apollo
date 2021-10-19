@@ -10,6 +10,8 @@ import {
     createHttpLink,
 } from '@apollo/client'
 import { setContext } from '@apollo/client/link/context'
+import { ThemeProvider } from 'styled-components'
+import { theme } from './style/theme'
 
 const httpLink = createHttpLink({
     uri: 'https://api.github.com/graphql',
@@ -78,7 +80,9 @@ const client = new ApolloClient({
 })
 ReactDOM.render(
     <ApolloProvider client={client}>
-        <App />
+        <ThemeProvider theme={theme}>
+            <App />
+        </ThemeProvider>
     </ApolloProvider>,
     document.getElementById('root')
 )

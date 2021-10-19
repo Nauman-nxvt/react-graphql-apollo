@@ -11,15 +11,15 @@ const AppHeader = styled.nav`
     padding: 10px 16px;
     font-size: 0.9rem;
     line-height: 1.5;
-    color: #fff;
-    background-color: #24292f;
+    color: ${({ theme }) => theme.colors.whiteOG};
+    background-color: ${({ theme }) => theme.colors.black};
     width: 100%;
     margin-top: 0;
 `
 const Logo = styled(IconLogo)`
     width: 32px;
     height: 32px;
-    fill: #fff;
+    fill: ${({ theme }) => theme.colors.whiteOG};
     background: transparent;
 `
 
@@ -27,10 +27,10 @@ const NavList = styled.ul`
     list-style: none;
     a {
         font-weight: 600;
-        color: white;
+        color: ${({ theme }) => theme.colors.whiteOG};
         text-decoration: none;
         :hover {
-            color: #d0d7de;
+            color: ${({ theme }) => theme.colors.paleWhite};
         }
     }
 `

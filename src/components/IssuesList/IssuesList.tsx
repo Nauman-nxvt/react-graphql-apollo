@@ -13,7 +13,7 @@ const IssuesListContainer = styled(ContentWrapper)`
 
 const IssueList = styled.ul`
     list-style: none;
-    border: 1px solid #d0d7de;
+    border: 1px solid ${({ theme }) => theme.colors.paleWhite};
     padding: 0;
     margin-top: 0;
     border-bottom-right-radius: 6px;
@@ -24,9 +24,9 @@ const IssueListItem = styled.li`
     display: flex;
     flex-direction: column;
     padding: 10px;
-    border-bottom: 1px solid #d0d7de;
+    border-bottom: 1px solid ${({ theme }) => theme.colors.paleWhite};
     :hover {
-        background-color: #eaeef2;
+        background-color: ${({ theme }) => theme.colors.white};
     }
 `
 
@@ -35,7 +35,7 @@ const IssueTitle = styled.div`
     flex-direction: row;
     align-items: center;
     justify-content: flex-start;
-    font-size: 0.9em;
+    font-size: 0.9rem;
     line-height: 1;
 
     p {
@@ -47,7 +47,7 @@ const IssueTitle = styled.div`
 `
 
 const IssueInfoWrapper = styled.div`
-    color: #57606a;
+    color: ${({ theme }) => theme.colors.grey};
     margin: 4px 20px;
     font-size: 0.7rem;
 `
@@ -56,7 +56,7 @@ const StyledLink = styled(Link)`
     text-decoration: none;
     color: black;
     :hover {
-        color: #0969da;
+        color: ${({ theme }) => theme.colors.royalBlue};
     }
 `
 

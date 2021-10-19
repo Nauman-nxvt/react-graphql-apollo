@@ -20,47 +20,49 @@ const SearchBox = styled.div`
 
     input[type='text'] {
         width: 100%;
-        background-color: rgb(246, 248, 250);
+        background-color: ${({ theme }) => theme.colors.lightGrey};
         border-radius: 6px;
         padding: 5px 12px 5px 30px;
         font-size: 0.9rem;
         line-height: 20px;
-        border: 1px solid #d0d7de;
+        border: 1px solid ${({ theme }) => theme.colors.paleWhite};
     }
 `
 const SearchButtonsContainer = styled.div`
     padding: 16px;
     margin: 20px 0 0 0;
-    background-color: rgb(246, 248, 250);
+    background-color: ${({ theme }) => theme.colors.lightGrey};
     display: flex;
     flex-direction: row;
     justify-content: flex-start;
     min-width: 0;
-    border: 1px solid #d0d7de;
+    border: 1px solid ${({ theme }) => theme.colors.paleWhite};
     border-top-right-radius: 6px;
     border-top-left-radius: 6px;
 `
 
 const IssueStateButton = styled(IconButton)<{ isSelected: boolean }>`
     width: 70px;
-    color: ${({ isSelected }) => (isSelected ? 'black' : '#57606a')};
+    color: ${({ isSelected, theme }) =>
+        isSelected ? 'black' : theme.colors.grey};
     svg {
-        fill: ${({ isSelected }) => (isSelected ? 'black' : '#57606a')};
+        fill: ${({ isSelected, theme }) =>
+            isSelected ? 'black' : theme.colors.grey};
     }
 `
 
 const ClearSearchButton = styled(IconButton)`
     align-items: center;
     font-weight: 600;
-    color: rgb(87, 96, 106);
+    color: ${({ theme }) => theme.colors.darkGrey};
     & svg {
-        fill: rgb(87, 96, 106);
+        fill: ${({ theme }) => theme.colors.darkGrey};
     }
 
     :hover {
-        color: #0969da;
+        color: ${({ theme }) => theme.colors.royalBlue};
         & svg {
-            fill: #0969da;
+            fill: ${({ theme }) => theme.colors.royalBlue};
         }
     }
 `
@@ -80,9 +82,9 @@ const SearchIcon = styled(IconSearch)`
     height: 1.5rem;
     margin: 3px 5px 0 5px;
     position: absolute;
-    fill: #57606a;
+    fill: ${({ theme }) => theme.colors.grey};
     stroke-width: 2px;
-    stroke: #57606a;
+    stroke: ${({ theme }) => theme.colors.grey};
     top: 115px;
 `
 
