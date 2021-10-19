@@ -2,8 +2,8 @@ import React from 'react'
 import { convertDateToTimeAgo } from '../helpers/date-helpers'
 import styled from 'styled-components'
 const CommentHeader = styled.div`
-    padding: 16px;
-    margin: 20px 0 0 0;
+    padding: ${({ theme }) => theme.unit3};
+    margin: ${({ theme }) => theme.unit4} 0 0 0;
     background-color: ${({ theme }) => theme.colors.lightGrey};
     display: flex;
     flex-direction: row;
@@ -18,14 +18,14 @@ const CommentHeader = styled.div`
 const CommentBody = styled.div`
     border: 1px solid ${({ theme }) => theme.colors.paleWhite};
     border-top: 0;
-    padding: 10px;
+    padding: ${({ theme }) => theme.unit2};
     line-height: 1.5;
     border-bottom-left-radius: 6px;
     border-bottom-right-radius: 6px;
   pre {
-    padding: 16px;
+    padding: ${({ theme }) => theme.unit3};
     overflow: auto;
-    font-size: 85%;
+    font-size: ${({ theme }) => theme.fontSize4};
     line-height: 1.45;
     background-color: ${({ theme }) => theme.colors.lightestGrey};
     border-radius: 6px;

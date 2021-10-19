@@ -9,8 +9,8 @@ export const BasicButton = styled.button`
     align-items: center;
     border: none;
     box-shadow: none;
-    padding: 10px;
-    font-size: 0.9rem;
+    padding: ${({ theme }) => theme.unit2};
+    font-size: ${({ theme }) => theme.fontSize4};
     cursor: pointer;
 `
 
@@ -19,9 +19,9 @@ export const IconButton = styled.button`
     flex-direction: row;
     justify-content: flex-start;
     padding: 0;
-    margin: 0 5px;
+    margin: ${({ theme }) => `0 ${theme.unit1}`};
     background: transparent;
     border: 0;
     cursor: pointer;
-    font-size: 0.9rem;
+    font-size: ${({ theme }) => theme.fontSize4};
 `

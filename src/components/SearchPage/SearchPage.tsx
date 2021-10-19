@@ -7,8 +7,13 @@ import { useGetIssuesLazyQuery } from '../../generated/graphql'
 import { ISSUES_PER_PAGE } from '../../constants'
 import Message from '../atoms/Message'
 
+const SearchWrapper = styled.div`
+    width: 95%;
+    max-width: 1216px;
+    margin: auto;
+`
 const LoadMoreButton = styled(BasicButton)`
-    justify-self: center;
+    margin: auto;
 `
 
 function SearchPage(): JSX.Element {
@@ -49,7 +54,7 @@ function SearchPage(): JSX.Element {
     }, [query])
 
     return (
-        <>
+        <SearchWrapper>
             <MakeSearchQuery setQuery={setQuery} />
             {called && loading && <Message>Fetching Results..</Message>}
             {edges?.length === 0 ? (
@@ -62,7 +67,7 @@ function SearchPage(): JSX.Element {
                     Load More Issues
                 </LoadMoreButton>
             )}
-        </>
+        </SearchWrapper>
     )
 }
 

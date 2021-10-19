@@ -11,7 +11,7 @@ const Container = styled.div`
     width: 100%;
     height: auto;
     grid-template-columns: 100%;
-    padding-top: 20px;
+    padding-top: ${({ theme }) => theme.unit4};
 `
 
 function App(): JSX.Element {

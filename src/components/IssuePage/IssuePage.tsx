@@ -16,7 +16,7 @@ const IssueWrapper = styled(ContentWrapper)`
 const Issue = styled.div`
     display: flex;
     flex-direction: column;
-    padding: 10px;
+    padding: ${({ theme }) => theme.unit2};
 `
 
 const IssueTitle = styled.div`
@@ -37,7 +37,7 @@ const IssueTitle = styled.div`
 
 const IssueInfoWrapper = styled.div`
     color: ${({ theme }) => theme.colors.grey};
-    margin: 4px 10px;
+    margin: ${({ theme }) => `${theme.unit1} ${theme.unit2}`};
     span:first-of-type {
         font-weight: bold;
     }
@@ -45,7 +45,7 @@ const IssueInfoWrapper = styled.div`
 
 const Separator = styled.div`
     width: 100%;
-    margin-top: 10px;
+    margin-top: ${({ theme }) => theme.unit2};
     border-bottom: 1px solid ${({ theme }) => theme.colors.paleWhite};
 `
 

@@ -1,15 +1,16 @@
-import styled, { css } from 'styled-components'
+import styled from 'styled-components'
 import React, { Dispatch, SetStateAction, useEffect, useState } from 'react'
 import IconSearch from '../../icons/IconSearch'
 import IconCheck from '../../icons/IconCheck'
 import IconDot from '../../icons/IconDot'
 import IconCross from '../../icons/IconCross'
 import { IconButton } from '../atoms/Buttons'
-import ContentWrapper from '../atoms/ContentWrapper'
 import { DEFAULT_SEARCH_QUERY, SEARCH_FIELD_PLACEHOLDER } from '../../constants'
+import BaseIconStyle from '../atoms/BaseIconStyle'
 
-const SearchBoxWrapper = styled(ContentWrapper)`
-    margin-top: 20px;
+const SearchBoxWrapper = styled.section`
+    width: 100%;
+    margin-top: ${({ theme }) => theme.unit4};
 `
 
 const SearchBox = styled.div`
@@ -22,15 +23,16 @@ const SearchBox = styled.div`
         width: 100%;
         background-color: ${({ theme }) => theme.colors.lightGrey};
         border-radius: 6px;
-        padding: 5px 12px 5px 30px;
-        font-size: 0.9rem;
-        line-height: 20px;
+        padding: ${({ theme }) => theme.unit1};
+        padding-left: ${({ theme }) => theme.unit5};
+        font-size: ${({ theme }) => theme.fontSize4};
+        line-height: ${({ theme }) => theme.unit4};
         border: 1px solid ${({ theme }) => theme.colors.paleWhite};
     }
 `
 const SearchButtonsContainer = styled.div`
-    padding: 16px;
-    margin: 20px 0 0 0;
+    padding: ${({ theme }) => theme.unit3};
+    margin: ${({ theme }) => theme.unit4} 0 0 0;
     background-color: ${({ theme }) => theme.colors.lightGrey};
     display: flex;
     flex-direction: row;
@@ -42,7 +44,6 @@ const SearchButtonsContainer = styled.div`
 `
 
 const IssueStateButton = styled(IconButton)<{ isSelected: boolean }>`
-    width: 70px;
     color: ${({ isSelected, theme }) =>
         isSelected ? 'black' : theme.colors.grey};
     svg {
@@ -66,21 +67,17 @@ const ClearSearchButton = styled(IconButton)`
         }
     }
 `
-const IconStyle = css`
-    width: 1rem;
-    height: 1rem;
-    margin-right: 5px;
-`
+
 const CrossIcon = styled(IconCross)`
-    width: 1.25rem;
-    height: 1.25rem;
-    margin-right: 5px;
+    width: ${({ theme }) => theme.unit4};
+    height: ${({ theme }) => theme.unit4};
+    margin-right: ${({ theme }) => theme.unit1};
 `
 
 const SearchIcon = styled(IconSearch)`
-    width: 1.5rem;
-    height: 1.5rem;
-    margin: 3px 5px 0 5px;
+    width: ${({ theme }) => theme.unit4};
+    height: ${({ theme }) => theme.unit4};
+    margin: ${({ theme }) => theme.unit1};
     position: absolute;
     fill: ${({ theme }) => theme.colors.grey};
     stroke-width: 2px;
@@ -89,18 +86,18 @@ const SearchIcon = styled(IconSearch)`
 `
 
 const Check = styled(IconCheck)`
-    ${IconStyle};
+    ${BaseIconStyle};
     stroke-width: 1;
     stroke: currentColor;
 `
 const Dot = styled(IconDot)`
-    ${IconStyle}
+    ${BaseIconStyle}
 `
 
 const ClearSearch = styled.div`
     display: flex;
     width: 100%;
-    margin-top: 20px;
+    margin-top: ${({ theme }) => theme.unit4};
 `
 
 type MakeSearchQueryProps = {

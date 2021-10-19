@@ -8,8 +8,8 @@ const AppHeader = styled.nav`
     display: flex;
     align-items: center;
     justify-content: flex-start;
-    padding: 10px 16px;
-    font-size: 0.9rem;
+    padding: ${({ theme }) => `${theme.unit2} ${theme.unit3}`};
+    font-size: ${({ theme }) => theme.fontSize4};
     line-height: 1.5;
     color: ${({ theme }) => theme.colors.whiteOG};
     background-color: ${({ theme }) => theme.colors.black};
@@ -17,8 +17,8 @@ const AppHeader = styled.nav`
     margin-top: 0;
 `
 const Logo = styled(IconLogo)`
-    width: 32px;
-    height: 32px;
+    width: ${({ theme }) => theme.unit5};
+    height: ${({ theme }) => theme.unit5};
     fill: ${({ theme }) => theme.colors.whiteOG};
     background: transparent;
 `

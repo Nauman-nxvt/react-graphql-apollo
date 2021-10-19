@@ -3,10 +3,10 @@ import { SearchResult } from '../../generated/graphql'
 import styled from 'styled-components'
 import { GreenDot, RedCheck } from '../atoms/IssueStateIcons'
 import { Link } from 'react-router-dom'
-import ContentWrapper from '../atoms/ContentWrapper'
 import IssueInfo from '../IssueInfo'
 
-const IssuesListContainer = styled(ContentWrapper)`
+const IssuesListContainer = styled.section`
+    width: 100%;
     margin-top: 0;
     padding-top: 0;
 `
@@ -23,7 +23,7 @@ const IssueList = styled.ul`
 const IssueListItem = styled.li`
     display: flex;
     flex-direction: column;
-    padding: 10px;
+    padding: ${({ theme }) => theme.unit2};
     border-bottom: 1px solid ${({ theme }) => theme.colors.paleWhite};
     :hover {
         background-color: ${({ theme }) => theme.colors.white};
@@ -35,12 +35,12 @@ const IssueTitle = styled.div`
     flex-direction: row;
     align-items: center;
     justify-content: flex-start;
-    font-size: 0.9rem;
     line-height: 1;
 
     p {
         padding: 0;
         margin: 0;
+        font-size: ${({ theme }) => theme.fontSize5};
         font-weight: bold;
         line-height: 1.5;
     }
@@ -48,8 +48,8 @@ const IssueTitle = styled.div`
 
 const IssueInfoWrapper = styled.div`
     color: ${({ theme }) => theme.colors.grey};
-    margin: 4px 20px;
-    font-size: 0.7rem;
+    margin: ${({ theme }) => `${theme.unit1} ${theme.unit4}`};
+    font-size: ${({ theme }) => theme.fontSize3};
 `
 
 const StyledLink = styled(Link)`
