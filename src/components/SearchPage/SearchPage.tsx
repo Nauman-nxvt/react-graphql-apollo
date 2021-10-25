@@ -29,6 +29,10 @@ function SearchPage(): JSX.Element {
         })
 
     const loadMoreIssues = () => {
+        const currentlyVisibleIssues = page * ISSUES_PER_PAGE
+        if (edges && currentlyVisibleIssues < edges.length) {
+            return setPage(page + 1)
+        }
         typeof fetchMore !== 'undefined' &&
             fetchMore({
                 variables: {
