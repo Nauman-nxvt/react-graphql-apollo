@@ -6,3 +6,4 @@ src/setupTests.ts
 yarn.lock
 **/*.css
 **/*.html
+**/*.md
